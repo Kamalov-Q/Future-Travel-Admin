@@ -1,73 +1,80 @@
-# React + TypeScript + Vite
+# FutureTravel Admin
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An elegant, modern, and powerful administrative panel for the FutureTravel application. Built with the latest front-end technologies to manage tours, user bookings, and overall platform operations efficiently.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Framework**: [React 19](https://react.dev) + [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **UI Components**: [Shadcn UI](https://ui.shadcn.com/) + [Radix UI](https://www.radix-ui.com/)
+- **Form Handling & Validation**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+- **Data Fetching**: [TanStack React Query (v5)](https://tanstack.com/query/latest)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Deployment**: Configured for [Vercel](https://vercel.com/) (with SPA routing support)
 
-## React Compiler
+## ✨ Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Intuitive Dashboard**: Real-time stats, including total tours, active tours, and average pricing.
+- **Multilingual Support**: Manage tour details (e.g., destinations, descriptions) in multiple languages (Uzbek, Russian).
+- **Tour Management**: Full CRUD operations for creating, updating, activating, and deleting tours.
+- **Robust Filtering**: Filter and sort tours by attributes like `minPrice`, `maxPrice`, title, and activity status.
+- **Modern UI/UX**: Clean aesthetic, responsive design, smooth animations (`tw-animate-css`), and user-friendly interface powered by Tailwind CSS and Shadcn.
+- **Form Validation**: Strict and reliable client-side form validations using Zod schemas for properties like positive pricing, strict 0-5 ratings, and multi-language requirements.
 
-## Expanding the ESLint configuration
+## 🛠️ Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Clone the repository and install dependencies:
+
+```bash
+git clone git@github.com:Kamalov-Q/Future-Travel-Admin.git
+cd Future-Travel-Admin
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 3. Running Locally
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Start the Vite development server:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+The application will be available at `http://localhost:5173/` by default.
+
+### 4. Building for Production
+
+Compile TypeScript and build the static bundle:
+
+```bash
+npm run build
+```
+
+The production-ready site will be generated in the `dist/` directory.
+
+### 5. Deployment
+
+This project is configured out-of-the-box for [Vercel](https://vercel.com/). 
+A `vercel.json` file is included in the root directory which handles all client-side routing rewrites, preventing 404 errors during page refreshes on production.
+
+## 📂 Project Structure Overview
+
+- `src/components/` - Global UI components (Shadcn, custom shared widgets, buttons, layouts).
+- `src/featured/dashboard/` - Dashboard page views, charts, and summary statistics.
+- `src/featured/tours/` - Tour management feature module.
+  - `components/` - Tour-specific components (tables, modals, forms).
+  - `hooks/` - Data fetching hooks (`useTours`), connected to React Query.
+  - `schemas/` - Zod validation schemas for API inputs and form submission.
+  - `types/` - TypeScript type definitions for Tours.
+  - `pages/` - Main views for the Tours section.
+
+## 🛡️ License
+
+Private and Confidential - FutureTravel
