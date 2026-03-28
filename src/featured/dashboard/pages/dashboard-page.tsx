@@ -13,9 +13,9 @@ export function DashboardPage() {
     const items = allData?.items ?? [];
     const total = allData?.meta.totalItems ?? 0;
     const active = items.filter((t) => t.isActive).length;
-    const avgPrice = items.length
+    const avgPrice = (items.length
         ? items.reduce((acc, t) => acc + parseFloat(t.price), 0) / items.length
-        : 0;
+        : 0).toLocaleString("en-US", { maximumFractionDigits: 2 });
 
     const stats = [
         { label: "Total Tours", value: total, icon: Map, color: "text-sky-600", bg: "bg-sky-50" },
