@@ -1,42 +1,78 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { tourSchema, type TourFormValues } from "../schemas/tour.schema";
+import type { CreateTourPayload } from "../types/tour.types";
 import { useCreateTour } from "../hooks/useCreateTour";
 import { TourForm } from "./tour-form";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+} from "@/components/ui/dialog";
 
 interface CreateTourModalProps {
     open: boolean;
     onClose: () => void;
 }
 
-export function CreateTourModal({ open, onClose }: CreateTourModalProps) {
+const defaultValues: TourFormValues = {
+    destinationUz: "",
+    descriptionUz: "",
+    destinationRu: "",
+    descriptionRu: "",
+    price: 0,
+    rating: 4.5,
+    info: [],
+    imageUrls: [],
+    isActive: true,
+};
+
+export function CreateTourModal({
+    open,
+    onClose,
+}: CreateTourModalProps) {
     const form = useForm<TourFormValues>({
         resolver: zodResolver(tourSchema),
-        defaultValues: {
-            destinationUz: "", descriptionUz: "",
-            destinationRu: "", descriptionRu: "",
-            price: 0, rating: 4.5,
-            info: [""], imageUrls: [], isActive: true,
-        },
+        defaultValues,
     });
 
     const { mutateAsync, isPending } = useCreateTour(() => {
-        form.reset();
+        form.reset(defaultValues);
         onClose();
     });
 
+    useEffect(() => {
+        if (!open) {
+            form.reset(defaultValues);
+        }
+    }, [open, form]);
+
     const onSubmit = async (values: TourFormValues) => {
-        await mutateAsync(values);
+        const payload: CreateTourPayload = {
+            ...values,
+            price: Number(values.price),
+            rating: Number(values.rating),
+            info: values.info.map((row) => row.text).filter(Boolean),
+        };
+
+        await mutateAsync(payload);
     };
 
     return (
-        <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
+        <Dialog open={open} onOpenChange={(value) => !value && onClose()}>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Create New Tour</DialogTitle>
                 </DialogHeader>
-                <TourForm form={form} onSubmit={onSubmit} isSubmitting={isPending} />
+
+                <TourForm
+                    form={form}
+                    onSubmit={onSubmit}
+                    isSubmitting={isPending}
+                    submitLabel="Create Tour"
+                />
             </DialogContent>
         </Dialog>
     );
