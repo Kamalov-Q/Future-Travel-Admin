@@ -1,3 +1,8 @@
+export interface TourInfoItem {
+    ru: string;
+    uz: string;
+}
+
 export interface Tour {
     id: string;
     destinationUz: string;
@@ -6,7 +11,7 @@ export interface Tour {
     descriptionRu: string;
     price: string;
     rating: number;
-    info: string[];
+    info: TourInfoItem[];
     imageUrls: string[];
     isActive: boolean;
     createdAt: string;
@@ -35,7 +40,7 @@ export interface CreateTourPayload {
     descriptionRu: string;
     price: number;
     rating: number;
-    info: string[];
+    info: TourInfoItem[];
     imageUrls: string[];
     isActive: boolean;
 }

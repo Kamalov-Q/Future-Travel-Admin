@@ -54,7 +54,6 @@ export function CreateTourModal({
             ...values,
             price: Number(values.price),
             rating: Number(values.rating),
-            info: values.info.map((row) => row.text).filter(Boolean),
         };
 
         await mutateAsync(payload);

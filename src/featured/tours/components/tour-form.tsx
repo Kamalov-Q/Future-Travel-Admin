@@ -164,7 +164,7 @@ export function TourForm({
                     />
                 </div>
 
-                <div className="space-y-3">
+                {/* <div className="space-y-3">
                     <div className="flex items-center justify-between">
                         <div>
                             <h3 className="text-sm font-medium">Info Items</h3>
@@ -219,6 +219,89 @@ export function TourForm({
                                         </FormItem>
                                     )}
                                 />
+                            ))
+                        )}
+                    </div>
+                </div> */}
+
+                <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h3 className="text-sm font-medium">Info Items</h3>
+                            <p className="text-sm text-muted-foreground">
+                                Add included services in Uzbek and Russian.
+                            </p>
+                        </div>
+
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => infoFieldArray.append({ uz: "", ru: "" })}
+                        >
+                            <Plus className="mr-2 h-4 w-4" />
+                            Add Info
+                        </Button>
+                    </div>
+
+                    <div className="space-y-4">
+                        {infoFieldArray.fields.length === 0 ? (
+                            <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+                                No info rows yet.
+                            </div>
+                        ) : (
+                            infoFieldArray.fields.map((item, index) => (
+                                <div
+                                    key={item.id}
+                                    className="grid gap-3 rounded-lg border p-4 md:grid-cols-[1fr_1fr_auto]"
+                                >
+                                    <FormField
+                                        control={form.control}
+                                        name={`info.${index}.uz`}
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Info UZ</FormLabel>
+                                                <FormControl>
+                                                    <Input
+                                                        placeholder="Aviachipta"
+                                                        {...field}
+                                                        value={field.value ?? ""}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                        control={form.control}
+                                        name={`info.${index}.ru`}
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Info RU</FormLabel>
+                                                <FormControl>
+                                                    <Input
+                                                        placeholder="Авиабилет"
+                                                        {...field}
+                                                        value={field.value ?? ""}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <div className="flex items-end">
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            size="icon"
+                                            onClick={() => infoFieldArray.remove(index)}
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                    </div>
+                                </div>
                             ))
                         )}
                     </div>

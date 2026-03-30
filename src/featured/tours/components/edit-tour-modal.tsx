@@ -48,9 +48,7 @@ export function EditTourModal({
                     ? Number.parseFloat(tour.price)
                     : Number(tour.price ?? 0),
             rating: Number(tour.rating ?? 4.5),
-            info: Array.isArray(tour.info)
-                ? tour.info.map((text) => ({ text }))
-                : [],
+            info: Array.isArray(tour.info) ? tour.info : [],
             imageUrls: Array.isArray(tour.imageUrls) ? tour.imageUrls : [],
             isActive: Boolean(tour.isActive),
         };
@@ -81,8 +79,7 @@ export function EditTourModal({
         const payload: CreateTourPayload = {
             ...values,
             price: Number(values.price),
-            rating: Number(values.rating),
-            info: values.info.map((row) => row.text).filter(Boolean),
+            rating: Number(values.rating)
         };
 
         await mutateAsync({
